@@ -1,0 +1,138 @@
+﻿@model IEnumerable<WebApp.Models.Pet>
+
+<!-- Hero Section -->
+<section class="hero-section min-vh-100 d-flex align-items-center">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-4 fade-in">Pati Dostum'a Hoş Geldiniz</h1>
+        <p class="lead mb-5 fade-in">Minik dostlarımıza sıcak bir yuva olmak için buradayız.</p>
+        <a href="#pets" class="btn btn-primary btn-lg px-5 py-3 fade-in">
+            <i class="bi bi-arrow-down me-2"></i>Dostlarımızı Keşfet
+        </a>
+    </div>
+</section>
+
+<!-- Pets Section -->
+<section id="pets" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Sahiplendirmeyi Bekleyen Dostlarımız</h2>
+            <p class="lead text-muted">Yeni bir dost edinmek için aşağıdaki sevimli dostlarımızdan birini seçebilirsiniz.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var pet in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100">
+                        <div class="position-relative overflow-hidden">
+                            <img src="@pet.ImageUrl" class="card-img-top" alt="@pet.Name" style="height: 250px; object-fit: cover;">
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge bg-primary">@pet.Species</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">@pet.Name</h5>
+                            <div class="mb-3">
+                                <span class="text-muted me-3">
+                                    <i class="bi bi-calendar me-1"></i>@pet.Age yaşında
+                                </span>
+                                <span class="text-muted">
+                                    <i class="bi bi-gender-ambiguous me-1"></i>@pet.Gender
+                                </span>
+                            </div>
+                            <p class="card-text text-muted mb-3">@(pet.Description.Length > 100 ? pet.Description.Substring(0, 100) + "..." : pet.Description)</p>
+                            <a asp-controller="Pets" asp-action="Details" asp-route-id="@pet.Id" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-eye me-2"></i>Detayları Gör
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Pets" asp-action="Index" class="btn btn-outline-primary btn-lg px-5">
+                <i class="bi bi-grid me-2"></i>Tüm Dostlarımızı Gör
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon bg-primary mx-auto mb-3">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <h3>Sevgi Dolu</h3>
+                    <p class="text-muted">Her dostumuz sevgi ve şefkatle büyütülüyor.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon bg-primary mx-auto mb-3">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3>Sağlıklı</h3>
+                    <p class="text-muted">Tüm dostlarımızın sağlık kontrolleri düzenli olarak yapılıyor.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon bg-primary mx-auto mb-3">
+                        <i class="bi bi-house-heart"></i>
+                    </div>
+                    <h3>Yuva Arıyor</h3>
+                    <p class="text-muted">Sıcak bir yuvada yaşamayı bekliyor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+}

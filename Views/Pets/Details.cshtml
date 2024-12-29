@@ -1,0 +1,155 @@
+@model WebApp.Models.Pet
+
+@{
+    ViewData["Title"] = $"{Model.Name} - Detaylar";
+}
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4 fade-in">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Pets" asp-action="Index">Sahiplendir</a></li>
+            <li class="breadcrumb-item active">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4 fade-in">
+        <div class="col-lg-6">
+            <div class="position-relative">
+                <img src="@Model.ImageUrl" class="img-fluid rounded-3 shadow-lg" alt="@Model.Name">
+                <div class="position-absolute top-0 end-0 m-3">
+                    <span class="badge bg-primary fs-6">@Model.Species</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h1 class="display-5 fw-bold mb-4">@Model.Name</h1>
+                    
+                    <div class="row mb-4">
+                        <div class="col-sm-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle me-3">
+                                    <i class="bi bi-calendar"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Yaş</small>
+                                    <strong>@Model.Age yaşında</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle me-3">
+                                    <i class="bi bi-gender-ambiguous"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Cinsiyet</small>
+                                    <strong>@Model.Gender</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle me-3">
+                                    <i class="bi bi-bookmark-heart"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Irk</small>
+                                    <strong>@Model.Breed</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle me-3">
+                                    <i class="bi bi-heart-pulse"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Sağlık Durumu</small>
+                                    <strong>@Model.HealthStatus</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Hakkında</h5>
+                        <p class="fs-5">@Model.Description</p>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex mt-4">
+                        <button class="btn btn-primary btn-lg flex-grow-1" data-bs-toggle="modal" data-bs-target="#adoptionModal">
+                            <i class="bi bi-heart-fill me-2"></i>Sahiplenmek İstiyorum
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-arrow-left me-2"></i>Geri Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sahiplenme Modal -->
+<div class="modal fade" id="adoptionModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title">Sahiplenme Başvurusu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <div class="feature-icon bg-primary mx-auto mb-3">
+                        <i class="bi bi-heart-fill"></i>
+                    </div>
+                    <h4 class="mb-3">@Model.Name'i Sahiplenmek İster misiniz?</h4>
+                    <p class="text-muted">Başvurunuz alındıktan sonra sizinle iletişime geçeceğiz.</p>
+                </div>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Adınız Soyadınız</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">E-posta Adresiniz</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Telefon Numaranız</label>
+                        <input type="tel" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mesajınız</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary">Başvuru Yap</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+} 

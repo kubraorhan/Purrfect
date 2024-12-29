@@ -1,0 +1,127 @@
+@model WebApp.Models.Pet
+
+@{
+    ViewData["Title"] = "Yeni Dostunu Ekle";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="display-6 fw-bold mb-4 text-center">Yeni Dostunu Ekle</h1>
+                    <p class="lead text-center text-muted mb-4">Sahiplendirmek istediğin dostunun bilgilerini aşağıdaki forma girebilirsin.</p>
+
+                    <form asp-action="Add" method="post" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Name" class="form-control" placeholder="İsim" required>
+                                    <label asp-for="Name">İsim</label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select asp-for="Species" class="form-select" required>
+                                        <option value="">Seçiniz</option>
+                                        <option value="Kedi">Kedi</option>
+                                        <option value="Köpek">Köpek</option>
+                                        <option value="Tavşan">Tavşan</option>
+                                        <option value="Kuş">Kuş</option>
+                                        <option value="Hamster">Hamster</option>
+                                    </select>
+                                    <label asp-for="Species">Tür</label>
+                                    <span asp-validation-for="Species" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Breed" class="form-control" placeholder="Irk" required>
+                                    <label asp-for="Breed">Irk</label>
+                                    <span asp-validation-for="Breed" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Age" class="form-control" placeholder="Yaş" required min="0" max="30" type="number">
+                                    <label asp-for="Age">Yaş</label>
+                                    <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select asp-for="Gender" class="form-select" required>
+                                        <option value="">Seçiniz</option>
+                                        <option value="Erkek">Erkek</option>
+                                        <option value="Dişi">Dişi</option>
+                                    </select>
+                                    <label asp-for="Gender">Cinsiyet</label>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="HealthStatus" class="form-control" placeholder="Sağlık Durumu" required>
+                                    <label asp-for="HealthStatus">Sağlık Durumu</label>
+                                    <span asp-validation-for="HealthStatus" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="ImageUrl" class="form-control" placeholder="Fotoğraf URL" required>
+                                    <label asp-for="ImageUrl">Fotoğraf URL</label>
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    <div class="form-text">Dostunuzun fotoğrafını bir görsel paylaşım sitesine yükleyip, bağlantısını buraya yapıştırabilirsiniz.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <textarea asp-for="Description" class="form-control" placeholder="Açıklama" style="height: 100px" required></textarea>
+                                    <label asp-for="Description">Açıklama</label>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="bi bi-plus-circle me-2"></i>Ekle
+                                </button>
+                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5 ms-2">
+                                    <i class="bi bi-arrow-left me-2"></i>Geri Dön
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+} 
